@@ -1,0 +1,90 @@
+{
+  "name": "live-php",
+  "displayName": "Live PHP",
+  "description": "Automatically refresh browser and routes in project PHP.",
+  "version": "1.0.0",
+  "publisher": "amc",
+  "engines": {
+    "vscode": "^1.92.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "icon": "dist/live-php-icon.png",
+  "contributes": {
+    "commands": [
+      {
+        "command": "live-php.start",
+        "title": "Start Live PHP"
+      },
+      {
+        "command": "live-php.stop",
+        "title": "Stop Live PHP"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "live-php.start",
+          "group": "navigation",
+          "when": "editorFocus && activeEditor"
+        },
+        {
+          "command": "live-php.stop",
+          "group": "navigation",
+          "when": "editorFocus && activeEditor"
+        }
+      ]
+    },
+    "configuration": [
+      {
+        "title": "Live PHP configuration",
+        "properties": {
+          "live-php.folderRouteWatch": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 20,
+            "default": "views"
+          },
+          "live-php.showTerminalOpen": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 3,
+            "default": "off"
+          }
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.7",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.92.0",
+    "@typescript-eslint/eslint-plugin": "^7.14.1",
+    "@typescript-eslint/parser": "^7.11.0",
+    "@vscode/test-cli": "^0.0.9",
+    "@vscode/test-electron": "^2.4.0",
+    "eslint": "^8.57.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.4.5",
+    "webpack": "^5.92.1",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "portfinder": "1.0.32",
+    "socket.io": "4.7.5"
+  }
+}
